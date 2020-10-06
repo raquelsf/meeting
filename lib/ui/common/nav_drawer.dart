@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeting/style/theme.dart' as Theme;
 
 class DrawerWidget extends StatefulWidget {
 
@@ -22,9 +23,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Nav-Bar'),
+            child: Text('Menu'),
             decoration: BoxDecoration(
-              color: Colors.black38,
+              color: Theme.Colors.appPrimary,
             ),
           ),
           _tiles('Item 1', Icons.favorite , 0),
@@ -38,14 +39,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 //cria cada item do menu
   Widget _tiles(String text, IconData icon, int item) {
     return ListTile(
-      leading: Icon(icon, color: Colors.black54),
+      leading: Icon(icon, color: Theme.Colors.appPrimary),
       onTap: () {
         _onSelectItem(item);
       },
       selected: item == _selectedIndex,
       title: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black26),
       ),
     );
   }

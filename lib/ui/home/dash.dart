@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meeting/ui/rooms/formRooms.dart';
 import 'package:meeting/ui/rooms/listRooms.dart';
+import 'package:meeting/style/theme.dart' as Theme;
 
 class Dash extends StatefulWidget {
   final String title;
@@ -35,7 +36,7 @@ class _Dash extends State<Dash> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black54,
+            color: Theme.Colors.appLight,
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: Row(
@@ -90,7 +91,7 @@ class _Dash extends State<Dash> {
                         child: Text(
                           number,
                           style: TextStyle(
-                            color: Colors.black38,
+                            color: Theme.Colors.appDark,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),

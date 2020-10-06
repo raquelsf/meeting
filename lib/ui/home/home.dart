@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meeting/api/api.dart';
 import 'package:meeting/ui/common/nav_drawer.dart';
 import 'package:meeting/ui/rooms/listRooms.dart';
-
+import 'package:meeting/style/theme.dart' as Theme;
 import 'dash.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Theme.Colors.appPrimary,
         title: new Text(widget.title),
       ),
       drawer: DrawerWidget(parentAction: _setIndex),

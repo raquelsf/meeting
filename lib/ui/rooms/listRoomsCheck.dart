@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/cupertino.dart';
+import 'package:meeting/api/api.dart';
+import 'package:meeting/model/rooms.dart';
+import 'package:meeting/ui/common/centered_label.dart';
+import 'package:meeting/ui/common/progress.dart';
+
 class ListRoomsCheck extends StatefulWidget {
   @override
   _ListRoomsCheck createState() => _ListRoomsCheck();
@@ -11,10 +15,6 @@ class _ListRoomsCheck extends State<ListRoomsCheck> {
 
   @override
   Widget build(BuildContext context) {
-    final titles = ['Pão de Queijo', 'Pampulha', 'Doce de Leite', 'Doce de Leite', 'Doce de Leite', 'Doce de Leite', 'Doce de Leite' ];
-
-    final icons = [Icons.filter_2, Icons.filter_4, Icons.filter_2, Icons.filter_2, Icons.filter_2, Icons.filter_2, Icons.filter_2];
-
     final subtitles = [
       '5 Pessoas - Tem Televisão.',
       '20 Pessoas - Tem Televisão.',
@@ -37,37 +37,56 @@ class _ListRoomsCheck extends State<ListRoomsCheck> {
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(top: 10.0),
-
                   child: new Card(
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-                          child: Text(
-                            'Escolha uma Sala:',
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: titles.length,
-                          itemBuilder: (context, index) {
-                            return Center(
-                              child: CheckboxListTile(
-                                title: Text(titles[index]),
-                                subtitle: Text(subtitles[index]),
-                                value: _selectedIndex == index,
-                                activeColor: Colors.black54,
-                                onChanged: (bool value) {
-                                  setState( () => _selectedIndex = index);
-                                },
-                                secondary: Icon(icons[index]),
-                              ),
-                            );
+                        CenteredLabel(message: 'Escolha uma Sala'),
+                        FutureBuilder<List<Room>>(
+                          future: findAll(),
+                          builder: (context, snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                break;
+                              case ConnectionState.waiting:
+                                Progress();
+                                break;
+                              case ConnectionState.active:
+                                break;
+                              case ConnectionState.done:
+                                final List<Room> rooms = snapshot.hasData
+                                    ? snapshot.data
+                                    : new List<Room>();
+                                if (rooms.isNotEmpty) {
+                                  return ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: rooms.length,
+                                    itemBuilder: (context, index) {
+                                      final Room room = rooms[index];
+                                      return Center(
+                                        child: CheckboxListTile(
+                                          title: Text(room.name.toString()),
+                                          subtitle: Text(subtitles[index]),
+                                          value: _selectedIndex == index,
+                                          activeColor: Colors.black54,
+                                          onChanged: (bool value) {
+                                            setState( () => _selectedIndex = index);
+                                          },
+                                          secondary: room.floor.toInt() == 2
+                                              ? Icon(Icons.filter_2)
+                                              : Icon(Icons.filter_4),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return CenteredLabel(
+                                      message: 'Nenhuma sala encontrada');
+                                }
+                                break;
+                            }
+                            return CenteredLabel(
+                                message: 'Servidor Indisponível');
                           },
                         ),
                       ],

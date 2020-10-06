@@ -4,6 +4,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:date_format/date_format.dart';
 import 'package:meeting/ui/common/centered_label.dart';
 import 'listRoomsCheck.dart';
+import 'package:meeting/style/theme.dart' as Theme;
 
 class FormRooms extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _FormRoomsState extends State<FormRooms> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Theme.Colors.appPrimary,
         title: new Text("Reservar Sala"),
       ),
       body: SafeArea(
@@ -52,7 +53,7 @@ class _FormRoomsState extends State<FormRooms> {
                           Container(
                             margin: const EdgeInsets.only(top: 5.0),
                             child: RaisedButton(
-                              color: Colors.black54,
+                              color: Theme.Colors.appLight,
                               onPressed: () {
                                 if (_btnEnabled) {
                                   showRooms();
@@ -119,7 +120,7 @@ class _FormRoomsState extends State<FormRooms> {
               Container(
                 margin: const EdgeInsets.only(top: 5.0),
                 child: RaisedButton(
-                  color: Colors.black54,
+                  color: Theme.Colors.appLight,
                   onPressed: () {
                     if (_btnEnabled) {
                       showRooms();

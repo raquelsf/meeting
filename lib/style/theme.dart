@@ -6,13 +6,14 @@ class Colors {
 
   const Colors();
 
-  static const Color orangelight = const Color(0xFFDF7C);
-  static const Color orangeDeep = const Color(0xFFDF7C);
+  static const Color appLight = const Color(0xffff6090);
+  static const Color appDark = const Color(0xFFb0003a);
+  static const Color appPrimary = const Color(0xFFb0003a);
   static const Color black = const Color.fromRGBO(73, 68, 64, 1.0);
   static const Color blueDeep = const Color.fromRGBO(39, 53, 84, 1.0);
 
   static const primaryGradient = const LinearGradient(
-    colors: const [orangelight, orangeDeep],
+    colors: const [appPrimary, appDark],
     stops: const [0.0, 1.0],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
