@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:meeting/model/rooms.dart';
 
 Future<List<Room>> findAll() async{
+  var host = "192.168.0.108";
+
   HttpClient client = new HttpClient();
   client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
 
-  HttpClientRequest request = await client.get("192.168.0.7", 5000, "/api/rooms").timeout(Duration(seconds: 5));
+  HttpClientRequest request = await client.get(host, 5000, "/api/rooms").timeout(Duration(seconds: 5));
 
   request.headers.set('content-type', 'application/json');
 
